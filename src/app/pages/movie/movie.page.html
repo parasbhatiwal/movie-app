@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>All Movies</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list class="movie-main-list">
+    <ion-item *ngFor="let movie of movies" [routerLink]="[movie.id]">
+      <ion-avatar slot="start">
+        <img [src]="imgBaseUrl + '/original' + movie.poster_path" alt="">
+      </ion-avatar>
+      <ion-label class="movie-title">{{movie.title}}
+        <p>{{movie.release_date | date}}</p>
+      </ion-label>
+      <ion-badge slot="end" [ngClass]="{'movie-success': movieSuccess ? 'movie-flop': movieFlop}">
+        {{movie.vote_average}}
+      </ion-badge>
+    </ion-item>
+  </ion-list>
+  <ion-infinite-scroll (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
